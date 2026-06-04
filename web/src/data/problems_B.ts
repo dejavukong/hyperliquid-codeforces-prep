@@ -102,7 +102,7 @@ function energyFrames(): Frame[] {
             `LEVEL=${mid.toFixed(2)}：供给 ${supply.toFixed(2)} ≥ 需求 ${demand.toFixed(2)} ✓ 可行——抬高水平线（lo=mid）。`)
         : b(`LEVEL=${mid.toFixed(2)}: supply ${supply.toFixed(2)} < demand ${demand.toFixed(2)} ✗ infeasible — lower the line (hi=mid).`,
             `LEVEL=${mid.toFixed(2)}：供给 ${supply.toFixed(2)} < 需求 ${demand.toFixed(2)} ✗ 不可行——降低水平线（hi=mid）。`),
-      arr: a,
+      arr: a, levelLine: mid,
       active: a.map((x, i) => (x > mid ? i : -1)).filter((i) => i >= 0),
       bad: a.map((x, i) => (x < mid ? i : -1)).filter((i) => i >= 0),
       metric: [
@@ -116,7 +116,7 @@ function energyFrames(): Frame[] {
   f.push({
     narr: b(`After fixed iterations lo≈hi. Answer ≈ ${lo.toFixed(2)}. Precision controlled by iteration count / eps, not exact equality.`,
       `固定迭代后 lo≈hi。答案 ≈ ${lo.toFixed(2)}。精度由迭代次数 / eps 控制，而非精确相等。`),
-    arr: a, metric: [{ label: 'answer', value: lo.toFixed(2), tone: 'long' }],
+    arr: a, levelLine: lo, metric: [{ label: 'answer', value: lo.toFixed(2), tone: 'long' }],
   })
   return f
 }

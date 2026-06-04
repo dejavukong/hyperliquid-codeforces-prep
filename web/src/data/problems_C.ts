@@ -63,6 +63,7 @@ function dancingFrames(): Frame[] {
       { l: 2, r: 3, diff: 1, state: 'dead' },
       { l: 1, r: 4, diff: 6, state: 'top' },
     ],
+    output: ['(4,5)'],
     metric: [{ label: 'matched', value: '1', tone: 'long' }],
   })
 
@@ -75,6 +76,7 @@ function dancingFrames(): Frame[] {
     ),
     people,
     pairs: [{ l: 1, r: 4, diff: 6, state: 'top' }],
+    output: ['(4,5)'],
     metric: [{ label: 'matched', value: '1', tone: 'long' }],
   })
 
@@ -87,6 +89,7 @@ function dancingFrames(): Frame[] {
     ),
     people,
     pairs: [{ l: 1, r: 4, diff: 6, state: 'dead' }],
+    output: ['(4,5)'],
     metric: [{ label: 'matched', value: '1', tone: 'long' }],
   })
 
@@ -99,6 +102,7 @@ function dancingFrames(): Frame[] {
     ),
     people,
     pairs: [],
+    output: ['(4,5)', '(2,8)'],
     metric: [{ label: 'matched', value: '2', tone: 'long' }],
   })
 
@@ -109,6 +113,7 @@ function dancingFrames(): Frame[] {
     ),
     people,
     pairs: [],
+    output: ['(4,5)', '(2,8)'],
     metric: [{ label: 'matched', value: '2', tone: 'long' }],
   })
 

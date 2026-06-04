@@ -73,9 +73,10 @@ export function StructViz({ frame }: { frame: Frame }) {
           const r = 17
           return (
             <g key={n.id} className="transition-all duration-300">
-              {st === 'cur' && <circle cx={px(n.x)} cy={py(n.y)} r={r + 6} fill="none" stroke="#98FCE4" strokeWidth="1" opacity="0.35" />}
+              {st === 'cur' && <circle cx={px(n.x)} cy={py(n.y)} r={r + 6} fill="none" stroke="#98FCE4" strokeWidth="1" opacity="0.35" className="animate-flicker" />}
               <circle cx={px(n.x)} cy={py(n.y)} r={r}
-                fill={NODE_FILL[st] ?? '#081A16'} stroke={NODE_STROKE[st] ?? '#2a6657'} strokeWidth={st === 'cur' ? 2.5 : 1.6} />
+                style={{ fill: NODE_FILL[st] ?? '#081A16', stroke: NODE_STROKE[st] ?? '#2a6657', transition: 'fill .35s, stroke .35s' }}
+                strokeWidth={st === 'cur' ? 2.5 : 1.6} />
               <text x={px(n.x)} y={py(n.y) + 4} textAnchor="middle"
                 fill={NODE_TEXT[st] ?? '#E8FFF9'} fontSize="13" fontWeight="700" fontFamily="JetBrains Mono">{n.label}</text>
               {n.sub && (
