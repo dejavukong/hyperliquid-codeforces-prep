@@ -27,7 +27,16 @@
 ## 模块 D · 压轴（分片/负载均衡）
 - [ ] 16. `2046C` Adventurers — 2100 — ⭐综合：二分+扫描+可合并结构
 
+## 模块 E · P2P 与共识（HyperBFT + gossip 网络）
+- [ ] E1. `510C` Fox And Names — 1600 — ⭐拓扑排序（约束推总序）
+- [ ] E2. `427C` Checkposts — 1700 — ⭐SCC（Tarjan）
+- [ ] E3. `20C` Dijkstra? — 1900 — 最短路 + 路径还原
+- [ ] E4. `1245D` Shichikuji and Power Grid — 1900 — ⭐MST（虚拟源）
+- [ ] E5. `999E` Reachability from the Capital — 2000 — SCC缩点+贪心
+- [ ] E6. `118E` Bertown roads — 2000 — ⭐桥 + 边定向
+- [ ] E7. `1000E` We Need More Bosses — 2100 — ⭐⭐桥树 + 树直径
+
 ---
-**进度：0 / 16**
+**进度：0 / 23**（撮合引擎 16 + 共识/P2P 7）
 
 ⭐ = HL 高频/高价值，⭐⭐ = 和真实撮合引擎最像，务必吃透并能复述。

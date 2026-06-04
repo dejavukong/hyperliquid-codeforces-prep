@@ -30,9 +30,10 @@ Hyperliquid 不是普通合约链。它的 **HyperCore** 在自研 L1（HyperBFT
 | ★★★★☆ | **贪心 + 排序** | 撮合配对、清算顺序、资源分配 | `greedy`, `sortings` |
 | ★★★☆☆ | **动态规划（背包/偏序链）** | 有限预算/算力下的最优资金分配 | `dp` |
 | ★★★☆☆ | **双指针 / 滑动窗口** | 吞吐窗口、限速、区间统计 | `two pointers` |
+| ★★★☆☆ | **图论（连通性 / SCC / 桥 / MST / 最短路 / 拓扑序）** | **HyperBFT 共识 + P2P gossip 网络**：连通性、容错、定序 | `graphs`, `dfs and similar`, `dsu` |
 | ★★☆☆☆ | **哈希 / 模拟** | order_id 注册表、引擎逻辑直接实现 | `hashing`, `implementation` |
 
-> 不建议优先投入：纯数论、计算几何、博弈、字符串自动机、网络流——这些在 HL 的 CF 面里命中率低，留到后期再补。
+> 不建议优先投入：纯数论、计算几何、字符串自动机、网络流——这些在 HL 的 CF 面里命中率低，留到后期再补。
 
 ---
 
@@ -60,6 +61,22 @@ Hyperliquid 不是普通合约链。它的 **HyperCore** 在自研 L1（HyperBFT
 | 16 | 2100 | [2046C](https://codeforces.com/problemset/problem/2046/C) | Adventurers | 合并排序树 + 二分 | **分片/负载均衡**：二维切分订单簿 |
 
 难度分布：1000→2100，覆盖 HL 面最可能的区间（典型考 **1400–2100**）。先吃透 1–13，再冲 14–16。
+
+### 2b. P2P 与共识专项（7 道，对应 HyperBFT + gossip 网络）
+
+Hyperliquid 的 **HyperBFT** 是 HotStuff 系的 leader-based BFT 共识，节点间靠 **P2P gossip** 传播区块/投票。这一类在 CF 上几乎全是**图论**：网络连通性、容错（单点故障）、消息定序、广播树。逐题详解见 [ROADMAP.md 模块 E](./ROADMAP.md#模块-e--p2p-与共识hyperbft--gossip-网络)。
+
+| # | 难度 | 题号 | 题名 | 核心考点 | 对应共识/P2P 环节 |
+|---|---|---|---|---|---|
+| E1 | 1600 | [510C](https://codeforces.com/problemset/problem/510/C) | Fox And Names | **拓扑排序** | 从局部约束推全局总序 = 交易定序 / DAG 共识 |
+| E2 | 1700 | [427C](https://codeforces.com/problemset/problem/427/C) | Checkposts | **SCC（Tarjan）** | 强连通组 = 互达节点群 / 选集群代表 |
+| E3 | 1900 | [20C](https://codeforces.com/problemset/problem/20/C) | Dijkstra? | 最短路 + 路径还原 | min-latency 消息路由 |
+| E4 | 1900 | [1245D](https://codeforces.com/problemset/problem/1245/D) | Shichikuji and Power Grid | **MST**（虚拟源点） | 最小代价 overlay / 广播树 |
+| E5 | 2000 | [999E](https://codeforces.com/problemset/problem/999/E) | Reachability from the Capital | SCC 缩点 + 贪心 | 保证从 leader 可达全网的最少连接（修复分区） |
+| E6 | 2000 | [118E](https://codeforces.com/problemset/problem/118/E) | Bertown roads | **桥** + 边定向（DFS 树） | 链路定向后仍全连通；桥 = 单点故障链路 |
+| E7 | 2100 | [1000E](https://codeforces.com/problemset/problem/1000/E) | We Need More Bosses | **桥树** + 树直径 | 网络中必经关键链路 = 最故障敏感路径 |
+
+> 补充心法（共识本身的算法直觉，不一定有对应 CF 题）：**Quorum 交集**（3f+1 中任意两个 2f+1 必相交）本质是计数 / 鸽巢；**leader 轮换 / view-change** 是定序；**DAG-based 共识**（Narwhal/Bullshark 系）就是对依赖 DAG 做拓扑排序——E1 是它的入门版。
 
 ---
 
