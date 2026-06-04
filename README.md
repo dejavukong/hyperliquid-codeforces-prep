@@ -1,6 +1,8 @@
 # Hyperliquid 面试 · Codeforces 刷题清单
 
 > 为面试 **Hyperliquid** 准备的算法刷题路线。核心假设：HL 的撮合引擎（on-chain CLOB）对**资金利用效率**和**高性能**有极致要求，所以它在 Codeforces 上筛的题，本质是在筛**数据结构 + 二分/贪心/DP 的工程级硬功夫**。
+
+> 🖥️ **交互式教程页面**：本仓库附带一个前端训练场（`web/`），把这 27 道题按模块分类、中英切换、点开答案、配交互动画讲解。运行：`cd web && npm install && npm run dev`。详见 [web/README.md](./web/README.md)。
 >
 > 本清单里的**每一道题都来自 Codeforces 官方 API 核验**（题号、难度 rating、tags 真实存在），题意也逐题抓取真实题面校对过，不是凭记忆编的。
 
