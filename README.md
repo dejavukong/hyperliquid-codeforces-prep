@@ -78,6 +78,29 @@ Hyperliquid 的 **HyperBFT** 是 HotStuff 系的 leader-based BFT 共识，节�
 
 > 补充心法（共识本身的算法直觉，不一定有对应 CF 题）：**Quorum 交集**（3f+1 中任意两个 2f+1 必相交）本质是计数 / 鸽巢；**leader 轮换 / view-change** 是定序；**DAG-based 共识**（Narwhal/Bullshark 系）就是对依赖 DAG 做拓扑排序——E1 是它的入门版。
 
+### 2c. 清算专项（Liquidation，4 道 + 子问题全景）
+
+清算是 perp DEX 最"算法密集"的场景。下表是**子问题 → 算法**的全景（面试可主动讲的框架），完整版 + 练习题详解见 [ROADMAP.md 模块 F](./ROADMAP.md#模块-f--清算liquidation)。
+
+| 清算子问题 | 算法 | 练习题 |
+|---|---|---|
+| 监控维持保证金、找越线仓位 | 有序集合/堆/线段树（按清算价排序） | — |
+| mark price（多源抗操纵） | **两个堆维护动态中位数** | — |
+| 决定部分清算数量 | **二分答案** | 见模块 B `68B` |
+| 清算单吃进订单簿、算深度滑点 | 前缀和 + 二分 | — |
+| **级联清算**（压价触发更多清算） | 模拟 + 单调栈 / BFS / DP | **F3 `607A`** |
+| 按风险紧迫度优先处理 | 排序 + 堆 | **F1 `545D`** |
+| 边处理边保持不破产 | **反悔贪心 + 堆** | **F2 `1526C2`** |
+| ADL 自动减仓排序 | 堆 / 排序（盈利×杠杆打分） | — |
+| 平仓盈亏匹配、清算所得实现 | **反悔贪心 + 优先队列** | **F4 `865D`** |
+
+| # | 难度 | 题号 | 题名 | 核心考点 | 对应清算环节 |
+|---|---|---|---|---|---|
+| F1 | 1300 | [545D](https://codeforces.com/problemset/problem/545/D) | Queue | 贪心 + 排序 | 按紧迫度排序，最大化平稳处理数 |
+| F2 | 1600 | [1526C2](https://codeforces.com/problemset/problem/1526/C2) | Potions (Hard) | **反悔贪心 + 堆** | 边处理边保持权益 ≥ 0（不破产） |
+| F3 | 1600 | [607A](https://codeforces.com/problemset/problem/607/A) | Chain Reaction | **级联 DP + 二分** | 清算压价的链式触发与波及范围 |
+| F4 | 2400 | [865D](https://codeforces.com/problemset/problem/865/D) | Buy Low Sell High | **反悔贪心 + 优先队列** | 平仓盈亏匹配 / PnL 实现（冲刺） |
+
 ---
 
 ## 3. 怎么用这个仓库
