@@ -49,6 +49,14 @@ export interface VizSpec {
   meta?: Record<string, unknown>
 }
 
+/** One rung on the brute-force → optimal solution ladder. */
+export interface Approach {
+  name: Bilingual          // e.g. "暴力枚举" / "Brute force"
+  complexity: string       // e.g. "O(n²)"
+  detail: Bilingual        // how it works + why it is/ isn't good enough
+  optimal?: boolean        // the recommended final answer
+}
+
 export interface Problem {
   id: string
   module: ModuleId
@@ -62,8 +70,10 @@ export interface Problem {
   statement: Bilingual
   /** mapping to a Hyperliquid engine mechanism */
   hl: Bilingual
-  /** the approach / answer */
+  /** the approach / answer (one-line optimal summary; ladder lives in `approaches`) */
   idea: Bilingual
+  /** brute-force → optimal solution ladder, simplest first */
+  approaches?: Approach[]
   complexity: string
   /** interview follow-up prompt */
   interview: Bilingual

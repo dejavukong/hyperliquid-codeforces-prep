@@ -3,6 +3,53 @@ import type { Lang, Problem } from '../types'
 import { MODULE_COLOR, ratingTone } from '../data/modules'
 import { AnimationPlayer } from './AnimationPlayer'
 
+/** Brute-force → optimal solution ladder (falls back to the single `idea`). */
+function ApproachLadder({ problem, lang }: { problem: Problem; lang: Lang }) {
+  const steps = problem.approaches
+  if (!steps?.length) {
+    return (
+      <div className="panel p-5 border-l-2 border-l-long/60">
+        <div className="eyebrow text-long mb-2">✓ {lang === 'cn' ? '解法' : 'approach'}</div>
+        <p className="text-[14.5px] leading-[1.75] text-ink/90 whitespace-pre-line">{problem.idea[lang]}</p>
+        <div className="mt-3 inline-flex items-center gap-2 chip bg-line/40 text-muted">
+          <span className="text-faint">complexity</span><span className="text-mint">{problem.complexity}</span>
+        </div>
+      </div>
+    )
+  }
+  return (
+    <div className="panel p-5">
+      <div className="flex items-baseline gap-2 mb-4">
+        <span className="eyebrow text-long">✓ {lang === 'cn' ? '解法阶梯' : 'solution ladder'}</span>
+        <span className="eyebrow text-faint">{lang === 'cn' ? '从最朴素到最高效' : 'simplest → most efficient'}</span>
+      </div>
+      <ol className="space-y-2.5">
+        {steps.map((a, i) => {
+          const isOpt = a.optimal || i === steps.length - 1
+          const tier = isOpt ? { cn: '最优', en: 'optimal' } : i === 0 ? { cn: '朴素', en: 'naive' } : { cn: '优化', en: 'better' }
+          return (
+            <li key={i} className="relative pl-9">
+              {/* number badge */}
+              <span className={`absolute left-0 top-1 h-6 w-6 grid place-items-center rounded-full text-[11px] font-mono font-bold border
+                ${isOpt ? 'bg-long/20 text-long border-long/50' : 'bg-panel-2 text-muted border-line'}`}>{i + 1}</span>
+              {/* connector */}
+              {i < steps.length - 1 && <span className="absolute left-3 top-8 -bottom-2.5 w-px bg-line" />}
+              <div className={`rounded-lg border p-3 ${isOpt ? 'border-long/50 bg-long/[0.06] shadow-glow' : 'border-line bg-panel-2/40'}`}>
+                <div className="flex items-center gap-2 flex-wrap mb-1.5">
+                  <span className={`chip border ${isOpt ? 'bg-long/15 text-long border-long/40' : 'bg-line/40 text-faint border-transparent'}`}>{tier[lang]}</span>
+                  <span className={`text-sm font-medium ${isOpt ? 'text-long' : 'text-ink'}`}>{a.name[lang]}</span>
+                  <span className="chip bg-base text-mint border border-mint/30 ml-auto tick">{a.complexity}</span>
+                </div>
+                <p className="text-[13.5px] leading-[1.7] text-ink/80 whitespace-pre-line">{a.detail[lang]}</p>
+              </div>
+            </li>
+          )
+        })}
+      </ol>
+    </div>
+  )
+}
+
 export function ProblemDetail({ problem, lang, setLang, onBack }: {
   problem: Problem; lang: Lang; setLang: (l: Lang) => void; onBack: () => void
 }) {
@@ -74,13 +121,7 @@ export function ProblemDetail({ problem, lang, setLang, onBack }: {
           </button>
         ) : (
           <div className="animate-fade-up space-y-4">
-            <div className="panel p-5 border-l-2 border-l-long/60">
-              <div className="eyebrow text-long mb-2">✓ {lang === 'cn' ? '解法' : 'approach'}</div>
-              <p className="text-[14.5px] leading-[1.75] text-ink/90 whitespace-pre-line">{problem.idea[lang]}</p>
-              <div className="mt-3 inline-flex items-center gap-2 chip bg-line/40 text-muted">
-                <span className="text-faint">complexity</span><span className="text-mint">{problem.complexity}</span>
-              </div>
-            </div>
+            <ApproachLadder problem={problem} lang={lang} />
             <div className="panel p-5 border-l-2 border-l-liq/60">
               <div className="eyebrow text-liq mb-2">? {lang === 'cn' ? '面试会怎么追问' : 'interview follow-up'}</div>
               <p className="text-[14px] leading-[1.7] text-ink/80">{problem.interview[lang]}</p>
